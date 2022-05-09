@@ -1,0 +1,153 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Flight Availaibility API",
+    "description": "Find out how your APIs work",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "localhost:5002",
+  "tags": [
+    {
+      "name": "Flight Availaibility",
+      "description": "API to check rela time flights availaibility and price, as they can change between the time of search and the time of booking"
+    }
+
+  ],
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/flight-availability": {
+      "post": {
+        "summary": "Flight Availaibility",
+        "tags": [
+          "Flights Results"
+        ],
+        "description": "To get real time price and availability of selected flight, it needs to get confirmed with airline by calling the Amadeus Flight Offers Price API", 
+        "parameters": [
+          {
+            "name": "getFlightAvailabilities",
+            "description": "list of criteria to retrieve a list of flight availabilities",
+            "in": "body",
+            "required": true,
+           
+            "schema": {
+              "type":"object",
+              "example": {
+                "type": "flight-offer",
+    "id": "1",
+    "source": "GDS",
+    "instantTicketingRequired": false,
+    "nonHomogeneous": false,
+    "oneWay": false,
+    "lastTicketingDate": "2022-09-10",
+    "numberOfBookableSeats": 9,
+    "itineraries": [
+      {
+        "duration": "PT2H45M",
+        "segments": [
+          {
+            "departure": {
+              "iataCode": "DEL",
+              "terminal": "3",
+              "at": "2022-10-10T06:10:00"
+            },
+            "arrival": {
+              "iataCode": "BLR",
+              "at": "2022-10-10T08:55:00"
+            },
+            "carrierCode": "AI",
+            "number": "803",
+            "aircraft": {
+              "code": "788"
+            },
+            "operating": {
+              "carrierCode": "AI"
+            },
+            "duration": "PT2H45M",
+            "id": "1",
+            "numberOfStops": 0,
+            "blacklistedInEU": false
+          }
+        ]
+      }
+    ],
+    "price": {
+      "currency": "INR",
+      "total": "4381.00",
+      "base": "3630.00",
+      "fees": [
+        {
+          "amount": "0.00",
+          "type": "SUPPLIER"
+        },
+        {
+          "amount": "0.00",
+          "type": "TICKETING"
+        }
+      ],
+      "grandTotal": "4381.00"
+    },
+    "pricingOptions": {
+      "fareType": [
+        "PUBLISHED"
+      ],
+      "includedCheckedBagsOnly": true
+    },
+    "validatingAirlineCodes": [
+      "AI"
+    ],
+    "travelerPricings": [
+      {
+        "travelerId": "1",
+        "fareOption": "STANDARD",
+        "travelerType": "ADULT",
+        "price": {
+          "currency": "INR",
+          "total": "4381.00",
+          "base": "3630.00"
+        },
+        "fareDetailsBySegment": [
+          {
+            "segmentId": "1",
+            "cabin": "ECONOMY",
+            "fareBasis": "SAP30",
+            "class": "S",
+            "includedCheckedBags": {
+              "weight": 25,
+              "weightUnit": "KG"
+            }
+          }
+        ]
+      }
+    ]
+              }
+           }
+            
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Real time data returned from Amadeus GDS"
+          },
+          "400":{
+            "description": "Client Error!!"
+          },
+          "500":{
+            "description": "Server Error!!"
+          }
+        }
+      }
+    }
+  }
+}

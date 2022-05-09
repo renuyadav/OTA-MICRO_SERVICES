@@ -1,0 +1,31 @@
+// router.js
+const { URL } = require("../config");
+const express = require("express");
+const router = express.Router();
+const axios = require("axios");
+
+router.get("/", function (req, res) {
+  try {
+    //return res.json('hello renu');
+    // axios.get('http://localhost:5000/flight-search?originCode=DEL&destinationCode=BLR&dateOfDeparture=2022-05-10')
+   
+    axios
+      .get(URL, { params: req.query })
+
+      .then((resp) => {
+        //console.log("renu:::", resp.data);
+        return res.json(resp.data);
+      })
+      .catch((err) => {
+        // Handle Error Here
+        // console.log("err in search microservice>>> ", err.response.status, "::" ,err.response.data);
+        return res
+            .status(err.response.status)
+            .json(err.response.data);
+      });
+  } catch (err) {
+    console.log("final eror block");
+  }
+});
+
+module.exports = router;

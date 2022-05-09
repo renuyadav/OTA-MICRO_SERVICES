@@ -1,0 +1,25 @@
+// router.js
+const { URL } = require("../config");
+const express = require("express");
+const router = express.Router();
+const axios = require("axios");
+
+router.post(`/`, (req, res) => {
+  //console.log("booking availability data>>>", req.body);
+  const inputFlight = req.body;
+  axios
+    .post(URL, req.body)
+    .then((resp) => {
+     // console.log("booking success>>" , resp.data);
+      return res.json(resp.data);
+    })
+    .catch((err) => {
+      //console.log("availability catch microservice",  err.response.data);
+      // Handle Error Here
+       return res
+          .status(err.response.status)
+          .json(err.response.data);
+    });
+});
+
+module.exports = router;

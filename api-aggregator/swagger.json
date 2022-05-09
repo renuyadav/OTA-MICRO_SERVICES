@@ -1,0 +1,86 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "Flight Search API",
+      "description": "Find out how your APIs work",
+      "license": {
+        "name": "MIT",
+        "url": "https://opensource.org/licenses/MIT"
+      }
+    },
+    "host": "localhost:5000",
+    "tags": [
+      {
+        "name": "Flight Search",
+        "description": "API for flights search in the system"
+      }
+
+    ],
+    "schemes": [
+      "http"
+    ],
+    "consumes": [
+      "application/json"
+    ],
+    "produces": [
+      "application/json"
+    ],
+    "paths": {
+      "/flightSearch": {
+        "get": {
+          "summary": "Flight search",
+          "tags": [
+            "Flights Results"
+          ],
+          "description": "It will retrieve flights data based on amadeus flight offer search",
+          "parameters": [
+            {
+              "name": "originCode",
+              "in": "query",
+              "description": "origin airport code of itenary",
+              "required":true,
+              "type": "string"
+            },
+            {
+                "name": "destinationCode",
+                "in": "query",
+                "description": "destination airport code of itenary",
+                "required":true,
+                "type": "string"
+            },
+            {
+                "name": "dateOfDeparture",
+                "in": "query",
+                "description": "date of departure",
+                "required":true,
+                "type": "string",
+                "format": "YYYY-MM-DD"
+            },
+            {
+                "name": "dateOfArrival",
+                "in": "query",
+                "description": "arrival date",
+                "type": "string",
+                "format": "YYYY-MM-DD"
+            }
+
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "Real time data returned from Amadeus GDS"
+            },
+            "400":{
+              "description": "Client Error!!"
+            },
+            "500":{
+              "description": "Server Error!!"
+            }
+          }
+        }
+      }
+    }
+  }
